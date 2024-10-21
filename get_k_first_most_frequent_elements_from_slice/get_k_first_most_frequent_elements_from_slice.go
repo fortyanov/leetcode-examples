@@ -17,7 +17,6 @@ k = 2
 */
 
 func getMostCommon(nums []int, countMostCommon int) (res []int) {
-	//res = make([]int, 0, countMostCommon)
 	resMap := make(map[int]int)
 
 	for _, num := range nums {
