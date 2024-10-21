@@ -8,16 +8,16 @@ type LinkedListNode struct {
 }
 
 type LinkedList struct {
-	Root *LinkedListNode
+	Head *LinkedListNode
 }
 
 func (ll *LinkedList) Insert(val int) {
-	if ll.Root == nil {
-		ll.Root = &LinkedListNode{Value: val}
+	if ll.Head == nil {
+		ll.Head = &LinkedListNode{Value: val}
 		return
 	}
 
-	ll.InsertRec(ll.Root, val)
+	ll.InsertRec(ll.Head, val)
 }
 
 func (ll LinkedList) InsertRec(node *LinkedListNode, val int) *LinkedListNode {

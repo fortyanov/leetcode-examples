@@ -49,7 +49,7 @@ func mergeKLists(lists []*data_types.LinkedList) (res *data_types.LinkedList) {
 		defer wg.Done()
 
 		for _, l := range lists {
-			l.GetValues(l.Root, llValuesChan)
+			l.GetValues(l.Head, llValuesChan)
 		}
 		close(llValuesChan)
 	}()
@@ -91,5 +91,5 @@ func main() {
 	ll3.Insert(6)
 
 	llMerged := mergeKLists([]*data_types.LinkedList{ll1, ll2, ll3})
-	llMerged.PrintValues(llMerged.Root)
+	llMerged.PrintValues(llMerged.Head)
 }
