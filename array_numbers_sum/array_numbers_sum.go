@@ -24,47 +24,11 @@ res = [1, 0, 0, 0] # число 1000
 
 import (
 	"fmt"
+	"leetcode-examples/utils/data_types"
 )
 
-type stack []uint64
-
-func (s *stack) Push(v uint64) {
-	*s = append(*s, v)
-}
-
-func (s *stack) Pop() (uint64, int) {
-	l := len(*s)
-
-	if l == 0 {
-		return 0, -1
-	}
-
-	res := (*s)[l-1]
-	*s = (*s)[:l-1]
-
-	return res, l
-}
-
-func (s stack) ToArray() []uint64 {
-	var (
-		res []uint64
-		v uint64
-		pos int
-	)
-
-	for {
-		v, pos = s.Pop()
-		if pos == -1 {
-			break
-		}
-		res = append(res, v)
-	}
-
-	return res
-}
-
 func sumLists(arr1, arr2 []uint64) []uint64 {
-	var stk1, stk2, stkRes stack
+	var stk1, stk2, stkRes data_types.Stack
 	for _, v := range arr1 {
 		stk1.Push(v)
 	}
@@ -73,7 +37,7 @@ func sumLists(arr1, arr2 []uint64) []uint64 {
 	}
 
 	var (
-		vsum uint64
+		vsum       uint64
 		isOverflow bool
 	)
 

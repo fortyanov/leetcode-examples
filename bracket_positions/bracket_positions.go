@@ -17,31 +17,13 @@ a*(b+c)
 
 import (
 	"fmt"
+	"leetcode-examples/utils/data_types"
 )
-
-type stack []uint64
-
-func (s *stack) Push(v uint64) {
-	*s = append(*s, v)
-}
-
-func (s *stack) Pop() (uint64, int) {
-	l := len(*s)
-
-	if l == 0 {
-		return 0, -1
-	}
-
-	res := (*s)[l-1]
-	*s = (*s)[:l-1]
-
-	return res, l
-}
 
 func bracketPositions(inp string) [][2]uint64 {
 	var (
 		res      [][2]uint64
-		stk      stack
+		stk      data_types.Stack
 		charPos  uint64
 		stackPos int
 	)
