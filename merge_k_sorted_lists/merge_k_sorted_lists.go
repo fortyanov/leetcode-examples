@@ -44,8 +44,9 @@ func mergeKLists(lists []*data_types.LinkedList) (res *data_types.LinkedList) {
 	bstValuesChan := make(chan int)
 	wg := new(sync.WaitGroup)
 
+	wg.Add(4)
+
 	go func() {
-		wg.Add(1)
 		defer wg.Done()
 
 		for _, l := range lists {
@@ -54,21 +55,28 @@ func mergeKLists(lists []*data_types.LinkedList) (res *data_types.LinkedList) {
 		close(llValuesChan)
 	}()
 
-	for v := range llValuesChan {
-		bst.Insert(v)
-	}
+	go func() {
+		defer wg.Done()
+
+		for v := range llValuesChan {
+			bst.Insert(v)
+		}
+	}()
 
 	go func() {
-		wg.Add(1)
 		defer wg.Done()
 
 		bst.GetValuesInorder(bst.Root, bstValuesChan)
 		close(bstValuesChan)
 	}()
 
-	for v := range bstValuesChan {
-		res.Insert(v)
-	}
+	go func() {
+		defer wg.Done()
+
+		for v := range bstValuesChan {
+			res.Insert(v)
+		}
+	}()
 
 	wg.Wait()
 
